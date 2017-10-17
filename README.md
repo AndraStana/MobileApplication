@@ -5,4 +5,9 @@ The Movie Application contains a list of all the available movies that a user ca
 Each user has the capability to look through the entire list of movies, to filter them by Genre, or look for them by one of their properties. A user is allowed to add a new movie, delete it, or edit its propereties
 
 Any user should provide an email and a password in order to be able to use the application. He can also register himself to create a new account.  
+   
+   
+   
+   
+saie2018@scs.ubbcluj.ro
 
