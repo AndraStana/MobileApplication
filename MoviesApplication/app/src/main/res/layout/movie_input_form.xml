@@ -1,0 +1,56 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <EditText
+        android:id="@+id/editTextMovieTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:hint="Movie Title"
+        android:maxLines="1">
+
+        <requestFocus />
+    </EditText>
+
+
+    <EditText
+        android:id="@+id/editTextMovieProducer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/editTextMovieTitle"
+        android:hint="Movie Producer"
+        android:maxLines="1" />
+
+
+    <EditText
+        android:id="@+id/editTextMovieYear"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/editTextMovieProducer"
+        android:hint="Movie Year"
+        android:maxLines="1" />
+
+    <EditText
+        android:id="@+id/editTextMovieGenre"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/editTextMovieYear"
+        android:hint="Movie Genre"
+        android:maxLines="1" />
+
+    <EditText
+        android:id="@+id/editTextMovieStoryline"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/editTextMovieGenre"
+        android:hint="Movie Storyline"
+        android:maxLines="1" />
+
+</RelativeLayout>
