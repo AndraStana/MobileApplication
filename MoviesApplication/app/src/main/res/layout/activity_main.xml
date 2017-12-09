@@ -34,30 +34,18 @@
         />
 
 
-
-    <ScrollView
-        android:id="@+id/scrollViewRecords"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+    <ListView
+        android:id="@+id/moviesListView"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_marginBottom="10dp"
+        android:layout_marginTop="5dp"
         android:layout_below="@+id/buttonAddMovie"
-        android:padding="20px"
-            >
-        <LinearLayout
-            android:id="@+id/linearLayoutRecords"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical" >
+        android:paddingLeft="2dp" >
+    </ListView>
 
-        </LinearLayout>
-    </ScrollView>
+
 </RelativeLayout>
 
-    <!--<ListView-->
-        <!--android:id="@+id/scrollViewRecords"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_width="0dp"-->
-        <!--android:layout_below="@+id/textViewRecordCount"-->
-        <!--&gt;-->
-    <!--</ListView>-->
 
 </android.support.constraint.ConstraintLayout>

@@ -11,7 +11,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 public class DatabaseHandler extends SQLiteOpenHelper {
 
-    private static final int DATABASE_VERSION = 1;
+    private static final int DATABASE_VERSION = 2;
     protected static final String DATABASE_NAME = "MovieApp";
 
     public DatabaseHandler(Context context) {
@@ -30,10 +30,22 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 "Genre TEXT ) ";
 
         db.execSQL(sql);
+
+        String sql2 = "CREATE TABLE MovieReviews " +
+                "( id INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                "MovieId int Not null," +
+                "Review int not null," +
+                "FOREIGN KEY (MovieId) REFERENCES Movies(id))";
+
+
+        db.execSQL(sql2);
+
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+        String sql2 = "DROP TABLE IF EXISTS MovieReviews";
+        db.execSQL(sql2);
         String sql = "DROP TABLE IF EXISTS Movies";
         db.execSQL(sql);
         onCreate(db);

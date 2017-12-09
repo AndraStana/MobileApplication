@@ -4,15 +4,22 @@ package com.example.dell.moviesapplication.listeners;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.NumberPicker;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.dell.moviesapplication.DetailsMovieActivity;
 import com.example.dell.moviesapplication.MainActivity;
 import com.example.dell.moviesapplication.R;
 import com.example.dell.moviesapplication.controller.MovieController;
+import com.example.dell.moviesapplication.controller.MovieReviewController;
+import com.example.dell.moviesapplication.enums.Review;
 import com.example.dell.moviesapplication.models.Movie;
+import com.example.dell.moviesapplication.models.MovieReview;
 
 /**
  * Created by dell on 11/4/2017.
@@ -28,8 +35,10 @@ public class OnLongClickListenerMovieRecord implements View.OnLongClickListener 
 
 
             context = view.getContext();
-            id = view.getTag().toString();
-            final CharSequence[] items = { "Edit", "Delete" };
+            //id = view.getTag().toString();
+            TextView movieIdTextView = (TextView) view.findViewById(R.id.movieId);
+            id=movieIdTextView.getText().toString();
+            final CharSequence[] items = { "Edit", "Delete","Review","View Details" };
 
             new AlertDialog.Builder(context).setTitle("Movie Record")
                     .setItems(items, new DialogInterface.OnClickListener() {
@@ -47,11 +56,75 @@ public class OnLongClickListenerMovieRecord implements View.OnLongClickListener 
                                 }
                                 ((MainActivity) context).readRecords();
                             }
+
+                            else if(item==2){
+                                reviewMovie(Integer.parseInt(id));
+                            }
+                            else if(item==3){
+                                viewDetails(Integer.parseInt(id), context);
+                            }
+
+
                             dialog.dismiss();
                         }
                     }).show();
             return false;
     }
+
+
+    public void reviewMovie(final int movieId){
+        final MovieReviewController movieReviewCtrl = new MovieReviewController(context);
+        LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        final View reviewMovieView = inflater.inflate(R.layout.review_movie, null, false);
+
+        final NumberPicker reviewPicker = (NumberPicker) reviewMovieView.findViewById(R.id.review);
+        final String[] values= {"Very bad","Bad", "Meh", "Good", "Very good"};
+
+        reviewPicker.setMinValue(Review.VeryBad.ordinal());
+        reviewPicker.setMaxValue(Review.VeryGood.ordinal());
+        reviewPicker.setWrapSelectorWheel(true);
+        reviewPicker.setDisplayedValues(values);
+        new AlertDialog.Builder(context)
+                .setView(reviewMovieView)
+                .setTitle("Review")
+                .setPositiveButton("Save",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+
+                                MovieReview movieReview = new MovieReview();
+                                movieReview.setMovieId(movieId);
+                                movieReview.setReview(Review.values()[reviewPicker.getValue()]);
+
+                                boolean createSuccessful = movieReviewCtrl.create(movieReview);
+
+                                if(createSuccessful){
+                                    Toast.makeText(context, "Movie was reviewed.", Toast.LENGTH_SHORT).show();
+                                }else{
+                                    Toast.makeText(context, "Unable to review movie.", Toast.LENGTH_SHORT).show();
+                                }
+
+                                ((MainActivity) context).readRecords();
+
+                                dialog.cancel();
+                            }
+
+                        }).show();
+
+    }
+
+    public void viewDetails(final int movieId, Context context){
+
+        final MovieController ctrl = new MovieController(context);
+        Movie movie = ctrl.readSingleRecord(movieId);
+
+        Intent myIntent = new Intent(context, DetailsMovieActivity.class);
+        myIntent.putExtra("movieId", movieId); //Optional parameters
+        context.startActivity(myIntent);
+    }
+
+
+
+
     public void editMovie(final int movieId) {
         final MovieController ctrl = new MovieController(context);
         Movie movie = ctrl.readSingleRecord(movieId);

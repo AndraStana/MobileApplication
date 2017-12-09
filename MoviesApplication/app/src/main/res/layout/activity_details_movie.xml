@@ -1,11 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.dell.moviesapplication.MainActivity">
+    tools:context="com.example.dell.moviesapplication.DetailsMovieActivity">
 
-    <EditText
-        android:id="@+id/editTextMovieTitle"
+
+
+
+
+    <TextView
+        android:id="@+id/textMovieTitle"
+        android:gravity="center"
+        android:padding="15px"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
@@ -14,44 +22,60 @@
         android:maxLines="1">
 
         <requestFocus />
-    </EditText>
+    </TextView>
 
 
-    <EditText
-        android:id="@+id/editTextMovieProducer"
+    <TextView
+        android:id="@+id/textMovieProducer"
+        android:gravity="center"
+        android:padding="15px"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:layout_below="@+id/editTextMovieTitle"
+        android:layout_below="@+id/textMovieTitle"
         android:hint="Movie Producer"
         android:maxLines="1" />
 
 
-    <EditText
-        android:id="@+id/editTextMovieYear"
+    <TextView
+        android:id="@+id/textMovieYear"
+        android:gravity="center"
+        android:padding="15px"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:layout_below="@+id/editTextMovieProducer"
+        android:layout_below="@+id/textMovieProducer"
         android:hint="Movie Year"
         android:maxLines="1" />
 
-    <EditText
-        android:id="@+id/editTextMovieGenre"
+    <TextView
+        android:id="@+id/textMovieGenre"
+        android:gravity="center"
+        android:padding="15px"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:layout_below="@+id/editTextMovieYear"
+        android:layout_below="@+id/textMovieYear"
         android:hint="Movie Genre"
         android:maxLines="1" />
 
-    <EditText
-        android:id="@+id/editTextMovieStoryline"
+    <TextView
+        android:id="@+id/textMovieStoryline"
+        android:gravity="center"
+        android:padding="15px"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:layout_below="@+id/editTextMovieGenre"
+        android:layout_below="@+id/textMovieGenre"
         android:hint="Movie Storyline"
         android:maxLines="1" />
+
+    <com.jjoe64.graphview.GraphView
+        android:layout_width="match_parent"
+        android:layout_height="200dip"
+        android:layout_below="@+id/textMovieStoryline"
+        android:id="@+id/graph" />
+
+
 
 </RelativeLayout>
