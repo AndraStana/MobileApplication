@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.dell.moviesapplication">
 
+
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -19,4 +21,6 @@
         <activity android:name=".DetailsMovieActivity"></activity>
     </application>
 
+
+    <uses-permission android:name="android.permission.INTERNET" />
 </manifest>

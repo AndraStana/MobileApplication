@@ -2,36 +2,38 @@ package com.example.dell.moviesapplication.models;
 
 import com.example.dell.moviesapplication.enums.Review;
 
+import java.util.UUID;
+
 /**
  * Created by dell on 12/7/2017.
  */
 
 public class MovieReview {
-    private int id;
-    private int movieId;
+    private String id;
+    private String movieTitle;
     private Review review;
 
-    public MovieReview(int id, int movieId, Review review) {
+    public MovieReview(String id, String movieTitle, Review review) {
         this.id=id;
-        this.movieId = movieId;
+        this.movieTitle = movieTitle;
         this.review = review;
     }
     public MovieReview() {
     }
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 
-    public int getMovieId() {
-        return movieId;
+    public String getMovieTitle() {
+        return movieTitle;
     }
 
-    public void setMovieId(int movieId) {
-        this.movieId = movieId;
+    public void setMovieTitle(String movieTitle) {
+        this.movieTitle = movieTitle;
     }
 
     public Review getReview() {

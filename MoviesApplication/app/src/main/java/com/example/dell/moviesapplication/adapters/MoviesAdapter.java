@@ -33,14 +33,14 @@ public class MoviesAdapter extends ArrayAdapter<Movie> {
             convertView = LayoutInflater.from(getContext()).inflate(R.layout.item_movie,parent,false);
         }
 
-        TextView movieTitleTextView= (TextView) convertView.findViewById(R.id.movieTtile);
+        TextView movieTitleTextView= (TextView) convertView.findViewById(R.id.movieTitle);
         TextView movieProducerTextView= (TextView) convertView.findViewById(R.id.movieProducer);
         TextView movieIdTextView= (TextView) convertView.findViewById(R.id.movieId);
 
 
 
-        movieTitleTextView.setText("Title: "+ movie.getTitle());
-        movieProducerTextView.setText("Producer: " + movie.getProducer());
+        movieTitleTextView.setText( movie.getTitle());
+        movieProducerTextView.setText("------>    " + movie.getProducer());
         movieIdTextView.setText(movie.getId()+"");
 
         //movieTitleTextView.setOnLongClickListener(new OnLongClickListenerMovieRecord());

@@ -6,5 +6,4 @@ package com.example.dell.moviesapplication.enums;
 
 public enum Review {
     VeryBad,Bad,Meh,Good,VeryGood;
-
 }

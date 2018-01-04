@@ -4,8 +4,8 @@
     android:layout_height="match_parent"
     tools:context="com.example.dell.moviesapplication.MainActivity">
 
-    <TextView
-        android:id="@+id/editTextMovieTitle"
+    <EditText
+        android:id="@+id/addTextMovieTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
@@ -14,43 +14,43 @@
         android:maxLines="1">
 
         <requestFocus />
-    </TextView>
+    </EditText>
 
 
     <EditText
-        android:id="@+id/editTextMovieProducer"
+        android:id="@+id/addTextMovieProducer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:layout_below="@+id/editTextMovieTitle"
+        android:layout_below="@+id/addTextMovieTitle"
         android:hint="Movie Producer"
         android:maxLines="1" />
 
 
     <EditText
-        android:id="@+id/editTextMovieYear"
+        android:id="@+id/addTextMovieYear"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:layout_below="@+id/editTextMovieProducer"
+        android:layout_below="@+id/addTextMovieProducer"
         android:hint="Movie Year"
         android:maxLines="1" />
 
     <EditText
-        android:id="@+id/editTextMovieGenre"
+        android:id="@+id/addTextMovieGenre"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:layout_below="@+id/editTextMovieYear"
+        android:layout_below="@+id/addTextMovieYear"
         android:hint="Movie Genre"
         android:maxLines="1" />
 
     <EditText
-        android:id="@+id/editTextMovieStoryline"
+        android:id="@+id/addTextMovieStoryline"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:layout_below="@+id/editTextMovieGenre"
+        android:layout_below="@+id/addTextMovieGenre"
         android:hint="Movie Storyline"
         android:maxLines="1" />
 

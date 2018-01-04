@@ -3,6 +3,7 @@ package com.example.dell.moviesapplication.listeners;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
@@ -12,6 +13,11 @@ import com.example.dell.moviesapplication.MainActivity;
 import com.example.dell.moviesapplication.R;
 import com.example.dell.moviesapplication.controller.MovieController;
 import com.example.dell.moviesapplication.models.Movie;
+import com.example.dell.moviesapplication.services.RemoteMovieServiceImpl;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 /**
  * Created by dell on 10/29/2017.
@@ -19,21 +25,22 @@ import com.example.dell.moviesapplication.models.Movie;
 
 public class OnClickListenerAddMovie implements View.OnClickListener {
 
-    private MovieController movieController;
-    public OnClickListenerAddMovie(MovieController mc){
-        movieController = mc;
+    private RemoteMovieServiceImpl.RemoteMovieServiceInterface remoteService;
+    private static final String TAG = "MyActivity";
+    public OnClickListenerAddMovie(RemoteMovieServiceImpl.RemoteMovieServiceInterface service){
+        remoteService = service;
     }
 
     public void onClick(View view){
         final Context context = view.getRootView().getContext();
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        final View formElementsView = inflater.inflate(R.layout.movie_input_form, null, false);
+        final View formElementsView = inflater.inflate(R.layout.add_movie, null, false);
 
-        final EditText editTextMovieTitle = (EditText) formElementsView.findViewById(R.id.editTextMovieTitle);
-        final EditText editTextMovieProducer = (EditText) formElementsView.findViewById(R.id.editTextMovieProducer);
-        final EditText editTextMovieYear = (EditText) formElementsView.findViewById(R.id.editTextMovieYear);
-        final EditText editTextMovieGenre = (EditText) formElementsView.findViewById(R.id.editTextMovieGenre);
-        final EditText editTextMovieStoryline = (EditText) formElementsView.findViewById(R.id.editTextMovieStoryline);
+        final EditText editTextMovieTitle = (EditText) formElementsView.findViewById(R.id.addTextMovieTitle);
+        final EditText editTextMovieProducer = (EditText) formElementsView.findViewById(R.id.addTextMovieProducer);
+        final EditText editTextMovieYear = (EditText) formElementsView.findViewById(R.id.addTextMovieYear);
+        final EditText editTextMovieGenre = (EditText) formElementsView.findViewById(R.id.addTextMovieGenre);
+        final EditText editTextMovieStoryline = (EditText) formElementsView.findViewById(R.id.addTextMovieStoryline);
 
         new AlertDialog.Builder(context)
                 .setView(formElementsView)
@@ -48,16 +55,33 @@ public class OnClickListenerAddMovie implements View.OnClickListener {
                                 String storyline = editTextMovieStoryline.getText().toString();
 
                                 Movie movie = new Movie(title,producer,year,genre,storyline);
-                                boolean createSuccessful = new MovieController(context).create(movie);
+                                addMovie(movie);
 
-                                if(createSuccessful){
-                                    Toast.makeText(context, "Movie information was saved.", Toast.LENGTH_SHORT).show();
-                                }else{
-                                    Toast.makeText(context, "Unable to save movie information.", Toast.LENGTH_SHORT).show();
-                                }
                                ((MainActivity) context).readRecords();
                                 dialog.cancel();
                             }
                         }).show();
     }
+
+
+
+    private void addMovie(Movie movie){
+        Call<Movie> call = remoteService.createMovie(movie.getTitle(), movie);
+        call.enqueue(new Callback<Movie>() {
+            @Override
+            public void onResponse(
+                    final Call<Movie> call,
+                    final Response<Movie> response) {
+                Log.d(TAG, "----------------------onResponse: merse");
+            }
+
+            @Override
+            public void onFailure(
+                    final Call<Movie> call,
+                    final Throwable t) {
+                Log.e(TAG, "----------------------onResponse:NUUUUU merse....." + t.getLocalizedMessage()  ,t);
+            }
+        });
+    }
+
 }

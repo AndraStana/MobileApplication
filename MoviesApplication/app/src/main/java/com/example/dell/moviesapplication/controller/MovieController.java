@@ -16,6 +16,11 @@ import java.util.List;
  */
 
 public class MovieController extends DatabaseHandler {
+
+
+
+
+
     public MovieController(Context context) {
         super(context);
     }
