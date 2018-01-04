@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.dell.moviesapplication.HomeActivity;
 import com.example.dell.moviesapplication.MainActivity;
 import com.example.dell.moviesapplication.R;
 import com.example.dell.moviesapplication.controller.MovieController;
@@ -57,7 +58,9 @@ public class OnClickListenerAddMovie implements View.OnClickListener {
                                 Movie movie = new Movie(title,producer,year,genre,storyline);
                                 addMovie(movie);
 
-                               ((MainActivity) context).readRecords();
+                               //((MainActivity) context).readRecords();
+                                ((HomeActivity) context).readRecords();
+
                                 dialog.cancel();
                             }
                         }).show();

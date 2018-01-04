@@ -10,6 +10,7 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 import com.example.dell.moviesapplication.R;
+import com.example.dell.moviesapplication.listeners.OnLongClickListenerAdminMovieRecord;
 import com.example.dell.moviesapplication.listeners.OnLongClickListenerMovieRecord;
 import com.example.dell.moviesapplication.models.Movie;
 
@@ -21,8 +22,10 @@ import java.util.ArrayList;
 
 public class MoviesAdapter extends ArrayAdapter<Movie> {
 
-    public MoviesAdapter(Context context, ArrayList<Movie> movies){
+    private boolean isAdmin;
+    public MoviesAdapter(Context context, ArrayList<Movie> movies, boolean isAdmin){
         super(context,0,movies);
+        this.isAdmin=isAdmin;
     }
 
     @Override
@@ -43,9 +46,12 @@ public class MoviesAdapter extends ArrayAdapter<Movie> {
         movieProducerTextView.setText("------>    " + movie.getProducer());
         movieIdTextView.setText(movie.getId()+"");
 
-        //movieTitleTextView.setOnLongClickListener(new OnLongClickListenerMovieRecord());
-        //movieProducerTextView.setOnLongClickListener(new OnLongClickListenerMovieRecord());
-        convertView.setOnLongClickListener(new OnLongClickListenerMovieRecord());
+        if(isAdmin==true){
+            convertView.setOnLongClickListener(new OnLongClickListenerAdminMovieRecord());
+        }else
+        {
+            convertView.setOnLongClickListener(new OnLongClickListenerMovieRecord());
+        }
 
 
         return convertView;

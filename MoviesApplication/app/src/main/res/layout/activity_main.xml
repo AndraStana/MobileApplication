@@ -37,13 +37,21 @@
     <ListView
         android:id="@+id/moviesListView"
         android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
+        android:layout_height="wrap_content"
         android:layout_marginBottom="10dp"
         android:layout_marginTop="5dp"
         android:layout_below="@+id/buttonAddMovie"
         android:paddingLeft="2dp" >
     </ListView>
 
+    <Button
+        android:id="@+id/logoutButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:text="Logout"
+        android:layout_below="@+id/moviesListView"
+        />
 
 </RelativeLayout>
 
