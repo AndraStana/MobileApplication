@@ -1,6 +1,9 @@
 package com.example.dell.moviesapplication;
 
+import android.app.NotificationManager;
 import android.content.Intent;
+import android.support.annotation.NonNull;
+import android.support.v4.app.NotificationCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -12,9 +15,15 @@ import com.example.dell.moviesapplication.adapters.MoviesAdapter;
 import com.example.dell.moviesapplication.listeners.OnClickListenerAddMovie;
 import com.example.dell.moviesapplication.listeners.OnClickListenerSendEmail;
 import com.example.dell.moviesapplication.models.Movie;
+import com.example.dell.moviesapplication.observer.Observer;
 import com.example.dell.moviesapplication.services.RemoteMovieServiceImpl;
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.GetTokenResult;
+import com.google.firebase.iid.FirebaseInstanceId;
 
 import java.util.ArrayList;
 import java.util.Map;
@@ -23,7 +32,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class HomeAdminActivity extends AppCompatActivity {
+public class HomeAdminActivity extends AppCompatActivity implements Observer {
 
     private RemoteMovieServiceImpl.RemoteMovieServiceInterface remoteService = RemoteMovieServiceImpl.getInstance();
 
@@ -50,14 +59,31 @@ public class HomeAdminActivity extends AppCompatActivity {
             }
         });
 
+        RemoteMovieServiceImpl.attach(this);
 
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
         FirebaseUser currentUser = mAuth.getCurrentUser();
         Log.d(TAG, "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa    Logged In USER: " + currentUser.getEmail());
-
-
         readRecords();
     }
+
+
+    @Override
+    public void update() {
+        Log.d(TAG, "OOOOOOBSEEEEEEEEEEEEEEEEEERVAAAAAAAABLE    ADMIN");
+        NotificationCompat.Builder mBuilder =
+                new NotificationCompat.Builder(this)
+                        .setSmallIcon(R.drawable.ic_stat_mood_bad)
+                        .setContentTitle("Movie Application")
+                        .setContentText( "The list of movies has been modified");
+
+
+        int mNotificationId = 001;
+        NotificationManager mNotifyMgr =
+                (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+        mNotifyMgr.notify(mNotificationId, mBuilder.build());
+    }
+
 
 
     public void displayData(Map<String, Movie> movies) {

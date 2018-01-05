@@ -126,7 +126,7 @@ public class OnLongClickListenerAdminMovieRecord implements View.OnLongClickList
                                 movie.setStoryline(editStorylineMovie.getText().toString());
 
                                 updateMovie(movie);
-
+                                RemoteMovieServiceImpl.notifyAllObservers();
                                 ((HomeAdminActivity) context).readRecords();
 
 
@@ -167,6 +167,7 @@ public class OnLongClickListenerAdminMovieRecord implements View.OnLongClickList
                     final Call<Movie> call,
                     final Response<Movie> response) {
                 Log.d(TAG, "----------------------onResponse: merse");
+                RemoteMovieServiceImpl.notifyAllObservers();
             }
 
             @Override

@@ -1,8 +1,10 @@
 package com.example.dell.moviesapplication;
 
+import android.app.NotificationManager;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.annotation.NonNull;
+import android.support.v4.app.NotificationCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -33,6 +35,7 @@ import com.example.dell.moviesapplication.services.RemoteMovieServiceImpl;
 import com.example.dell.moviesapplication.services.RemoteReviewServiceImpl;
 import com.google.firebase.analytics.FirebaseAnalytics;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.iid.FirebaseInstanceId;
 
 import java.util.ArrayList;
 import java.util.Map;
@@ -56,7 +59,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login_signup);
 
-        loginButton = (Button) findViewById(R.id.loginButton);
+
+           loginButton = (Button) findViewById(R.id.loginButton);
         signupButton = (Button) findViewById(R.id.signupButton);
         emailEdit = (EditText) findViewById(R.id.email);
         passwordEdit = (EditText) findViewById(R.id.password);
@@ -95,13 +99,11 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-                            // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "signInWithEmail:success");
                             FirebaseUser user = mAuth.getCurrentUser();
 
                             DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
                             rootRef.child("admins").child("email").addListenerForSingleValueEvent(new ValueEventListener() {
-
 
                                 @Override
                                 public void onDataChange(DataSnapshot dataSnapshot) {
@@ -115,8 +117,6 @@ public class MainActivity extends AppCompatActivity {
                                         signedIn(false);
                                     }
                                     Log.d(TAG,"AAAAAAAAAAAADMIIIINUL :    " + email);
-
-
                                 }
 
                                 @Override
@@ -125,40 +125,16 @@ public class MainActivity extends AppCompatActivity {
                                 }
                             });
 
-
-
-
-//
-//                             rootRef = firebase.ref();
-//                            ref.child("roles").child(firebaseUser.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
-//                                @Override
-//                                public void onDataChange(DataSnapshot dataSnapshot) {
-//                                    String role = dataSnapshot.getValue(String.class);
-//                                    // check role and replace fragment
-//                                }
-//                                @Override
-//                                public void onCancelled(DatabaseError databaseError) {}
-//                            });
-
-
-
-
-
-                            //updateUI(user);
                         } else {
-                            // If sign in fails, display a message to the user.
                             Log.w(TAG, "signInWithEmail:failure", task.getException());
                             Toast.makeText(MainActivity.this, "Authentication failed.",
                                     Toast.LENGTH_SHORT).show();
                             authFailed.setText("Authentification FAILED !");
-                            //updateUI(null);
                         }
-
                         // [START_EXCLUDE]
                         if (!task.isSuccessful()) {
                             authFailed.setText("Authentification FAILED !");
                         }
-                        //hideProgressDialog();
                         // [END_EXCLUDE]
                     }
                 });
@@ -171,51 +147,30 @@ public class MainActivity extends AppCompatActivity {
         if (!validateForm()) {
             return;
         }
-
-        //showProgressDialog();
-
         // [START create_user_with_email]
         mAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-                            // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "createUserWithEmail:success");
                             FirebaseUser user = mAuth.getCurrentUser();
-                            //updateUI(user);
                             signedIn(false);
                         } else {
-                            // If sign in fails, display a message to the user.
                             Log.w(TAG, "createUserWithEmail:failure", task.getException());
                             Toast.makeText(MainActivity.this, "Authentication failed.",
                                     Toast.LENGTH_SHORT).show();
-                            //updateUI(null);
                             authFailed.setText("Authentification FAILED !");
                         }
 
                         // [START_EXCLUDE]
-                        //hideProgressDialog();
                         // [END_EXCLUDE]
                     }
                 });
         // [END create_user_with_email]
     }
 
-
-
-
-
-
-
-
-
-
-
-
-
     //Normal user - HomeActivity
-    //TODO Admin user - AdminHomeActivity;
     public void signedIn(boolean isAdmin){
         Intent intent;
         authFailed.setText("");
@@ -249,67 +204,4 @@ public class MainActivity extends AppCompatActivity {
 
         return valid;
     }
-
-
-
 }
-
-
-//------------------------
-
-//
-//    private RemoteMovieServiceImpl.RemoteMovieServiceInterface remoteService = RemoteMovieServiceImpl.getInstance();
-//
-//    private static final String TAG = "MyActivity";
-//
-//    @Override
-//    protected void onCreate(Bundle savedInstanceState) {
-//        super.onCreate(savedInstanceState);
-//        setContentView(R.layout.activity_main);
-//
-//        Button buttonCreateStudent = (Button) findViewById(R.id.buttonAddMovie);
-//        buttonCreateStudent.setOnClickListener(new OnClickListenerAddMovie(remoteService));
-//
-//        Button buttonSendEmail = (Button) findViewById(R.id.sendEmailButton);
-//        buttonSendEmail.setOnClickListener(new OnClickListenerSendEmail());
-//        readRecords();
-//    }
-//
-//
-//    public void displayData(Map<String, Movie> movies) {
-//        ArrayList<Movie> moviesArray = new ArrayList<>();
-//
-//        for (Map.Entry<String, Movie> entry : movies.entrySet()) {
-//            moviesArray.add(entry.getValue());
-//        }
-//
-//        MoviesAdapter moviesAdapter = new MoviesAdapter(this, moviesArray);
-//        ListView listView = (ListView) findViewById(R.id.moviesListView);
-//        listView.setAdapter(moviesAdapter);
-//    }
-//
-//    public void readRecords() {
-//        Call<Map<String, Movie>> call = remoteService.getAllMovies();
-//        call.enqueue(new Callback<Map<String, Movie>>() {
-//            @Override
-//            public void onResponse(
-//                    final Call<Map<String, Movie>> call,
-//                    final Response<Map<String, Movie>> response) {
-//                final Map<String, Movie> movies = response.body();
-//                if (movies != null && !movies.isEmpty()) {
-//                    displayData(movies);
-//                    Log.d(TAG, "******************onResponse: Movies found as map with size: " + movies.size());
-//                } else {
-//                    Log.d(TAG, "******************onResponse: No movies found");
-//                }
-//            }
-//
-//            @Override
-//            public void onFailure(
-//                    final Call<Map<String, Movie>> call,
-//                    final Throwable t) {
-//                Log.e(TAG, "**********************onResume: Failed to find movies..." + t.getLocalizedMessage(), t);
-//            }
-//        });
-//    }
-//}

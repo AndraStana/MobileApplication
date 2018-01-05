@@ -20,7 +20,7 @@ import retrofit2.http.Path;
 public class RemoteReviewServiceImpl {
     private static Retrofit retrofit = new Retrofit.Builder()
             .baseUrl(BuildConfig.REMOTE_SERVICE_URL)
-            .addConverterFactory(GsonConverterFactory.create()) // use gson converter
+            .addConverterFactory(GsonConverterFactory.create())
             .build();
 
     private static RemoteReviewServiceImpl.RemoteReviewServiceInterface service = null;

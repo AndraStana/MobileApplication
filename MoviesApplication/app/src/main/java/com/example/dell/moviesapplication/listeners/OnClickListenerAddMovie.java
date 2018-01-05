@@ -10,6 +10,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.dell.moviesapplication.HomeActivity;
+import com.example.dell.moviesapplication.HomeAdminActivity;
 import com.example.dell.moviesapplication.MainActivity;
 import com.example.dell.moviesapplication.R;
 import com.example.dell.moviesapplication.controller.MovieController;
@@ -59,7 +60,7 @@ public class OnClickListenerAddMovie implements View.OnClickListener {
                                 addMovie(movie);
 
                                //((MainActivity) context).readRecords();
-                                ((HomeActivity) context).readRecords();
+                                ((HomeAdminActivity) context).readRecords();
 
                                 dialog.cancel();
                             }
@@ -76,6 +77,7 @@ public class OnClickListenerAddMovie implements View.OnClickListener {
                     final Call<Movie> call,
                     final Response<Movie> response) {
                 Log.d(TAG, "----------------------onResponse: merse");
+                RemoteMovieServiceImpl.notifyAllObservers();
             }
 
             @Override

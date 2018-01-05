@@ -2,7 +2,10 @@ package com.example.dell.moviesapplication.services;
 
 import com.example.dell.moviesapplication.BuildConfig;
 import com.example.dell.moviesapplication.models.Movie;
+import com.example.dell.moviesapplication.observer.Observer;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 import retrofit2.Call;
@@ -33,6 +36,18 @@ public class RemoteMovieServiceImpl {
             service = retrofit.create(RemoteMovieServiceInterface.class);
         }
         return service;
+    }
+
+
+    private static  List<Observer> observers = new ArrayList<Observer>();
+    public static void attach(Observer observer){
+        observers.add(observer);
+    }
+
+    public static void notifyAllObservers() {
+        for (Observer observer : observers) {
+            observer.update();
+        }
     }
 
     public interface RemoteMovieServiceInterface  {

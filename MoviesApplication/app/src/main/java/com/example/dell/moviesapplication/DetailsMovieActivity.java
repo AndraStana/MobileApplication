@@ -88,8 +88,6 @@ public class DetailsMovieActivity extends AppCompatActivity {
                 }
             }
         });
-
-
     }
 
     public Map<Integer,Integer> createReviewDict(String movieTitle,Map<String, MovieReview> reviews){
@@ -110,7 +108,6 @@ public class DetailsMovieActivity extends AppCompatActivity {
             dict.put(movieReview.getReview().ordinal(),dict.get(movieReview.getReview().ordinal())+1);
         }
         Map<Integer, Integer> sortedDict = new TreeMap<>(dict);
-
         return sortedDict;
     }
 
@@ -172,6 +169,5 @@ public class DetailsMovieActivity extends AppCompatActivity {
 
                 }
             });
-
     }
 }
